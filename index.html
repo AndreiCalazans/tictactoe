@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>TicTacToe Game</title>
+    <link rel="stylesheet" href="css.css">
+  </head>
+  <body onLoad="intro()" >
+<div class="container">
+  <header>
+    <h1>Tic Tac Toe</h1>
+  </header>
+  <div id="display" class="gameOptions"> <p>Are you X or O?</p>
+    <button class="X" onClick="gameStart('X')">X</button>
+    <button class="O" onClick="gameStart('O')">O</button>
+  </div>
+  <div class="game">
+    <div class="row">
+        <div class="box" id="1"></div>
+        <div class="box" id="2"></div>
+        <div class="box" id="3"></div>
+    </div>
+    <div class="row">
+        <div class="box" id="4"></div>
+        <div class="box" id="5"></div>
+        <div class="box" id="6"></div>
+    </div>
+    <div class="row">
+        <div class="box" id="7"></div>
+        <div class="box" id="8"></div>
+        <div class="box" id="9"></div>
+    </div>
+  </div>
+
+</div>
+
+
+  </body>
+</html>
+<script src="js.js"></script>
