@@ -6,7 +6,7 @@
 // game must start  by asking if x or o
 // afterwards it must iterate through the player x and o
 
-
+/// CHECK IF IT WORKS!!!!
 /// issue of the momment is if you continue to play it doesnt work@@@!
 // after the first round it seem to be push more than 1 answer.
 var xChosenBox = [] ;
