@@ -7,22 +7,27 @@
   min-width: 100%;
   text-align: center;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+header {
+  position: relative;
+  top:-20px;
 }
 .game {
  display:flex;
  justify-content: center;
  align-items: center;
- min-height: 60vh;
-}
-.row {
-
-
+ width:60vh;
+ flex-wrap: wrap;
 }
 .box {
   display: block;
-  width : 50px;
+  width : 19vh;
   height:50px;
-  border: 1px solid black;
+  border: 0.5px solid black;
   text-align: center;
   font-size:40px;
 }

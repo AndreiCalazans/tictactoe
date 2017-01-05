@@ -8,15 +8,95 @@
 // dont let it re click on the same square and still be able to select .
 //if all squares are filled and no winner then declare the loser
 
+// the variables
 var xChosenBox = [] ;
-var oChosenBox = [];
-var winningHands = [[1,4,7],[2,5,8],[3,6,9],[1,2,3],[4,5,6],[7,8,9],[1,5,9],[7,5,3]];
+var oChosenBox = [] ;
+var winningHands = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 var winningCounter ;
 var boardState = [0,0,0,0,0,0,0,0,0];
-var box = document.querySelectorAll(".box");
+var box = document.getElementsByClassName("box");
 var sign ;
-var boardSquares = [];
-var gameBoard = document.querySelector('.game');
+var user = 1;
+var computer = -1;
+var game = true;
+
+
+
+// functions
+function gameStart(symbol){
+  sign = symbol;
+  signComputer = sign == "X" ? "O" : "X";
+  reset();
+  game= true;
+}
+
+function claim(click){
+  if(!game){
+    return;
+  }
+  for(var x = 0 ; x <= 8 ; x++){
+    if(box[x] === click && boardState[x] == 0){
+      set(x,user);
+      callAI();
+    }
+  }
+}
+
+
+function set(index, player){
+  var symbol= player == user ? sign : signComputer;
+  box[index].innerHTML = symbol;
+  boardState[index] = player;
+}
+
+
+function callAI(){
+   aiTurn();
+}
+
+function checkWin(player){
+  for(var x = 0 ; x < 8 ; x++){
+    var win = true;
+
+    for(var y = 0 ; y < 3 ; y++ ){
+      if(boardState[winningHands[x][y]] != player){
+        win = false;
+        break;
+      }
+    }
+    if(win){
+      game = false;
+      return true;
+    }
+  }
+  return false;
+}
+
+function reset(){
+  for(var x = 0 ; x <= 8 ; x++){
+    boardState[x] = 0;
+    box[x].innerHTML = "";
+  }
+}
+
+
+function aiTurn(level){
+  //easy
+  // medium
+  // hard (minimax)
+
+
+}
+// the commands
+
+
+
+
+
+
+
+
+/*
 // function to check if won it look in the array of the selected boxes and looks for matches in t
 function checkIfWon(chosenBox,winner){
   winningCounter = 0 ;
@@ -103,12 +183,13 @@ function iterator(signal){
     sign = "X";
     return sign
   }
-
-
 }
-
-
 // make a universal function to take in x or o and insert it on the board while it also pushes the value to the array and
 // checks to see if the board square has already been filled ...
 
 // algorithm to find out a winnner
+*/
+
+
+
+// make a OOprogramming
