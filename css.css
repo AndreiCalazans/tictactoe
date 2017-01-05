@@ -58,8 +58,14 @@ header {
   align-items: center;
   flex-direction: column;
   margin-bottom : 50px;
-  width: 150px;
-  height: 70px;
+  width: 180px;
+  height: 130px;
   background : white;
 
+}
+#newWindow > * {
+  margin: 5px;
+}
+#newWindow div > *{
+  margin: 5px;
 }

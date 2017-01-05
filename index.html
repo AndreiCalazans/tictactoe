@@ -5,7 +5,7 @@
     <title>TicTacToe Game</title>
     <link rel="stylesheet" href="css.css">
   </head>
-  <body  >
+  <body  onLoad="intro()">
 <div class="container">
   <header>
     <h1>Tic Tac Toe</h1>
@@ -15,8 +15,17 @@
     <div id = "newWindow">
         <p>Are you X or O?</p>
       <div>
-        <button class="X" onClick="gameStart('X')">X</button>
-        <button class="O" onClick="gameStart('O')">O</button>
+        <form action="">
+          <input type="radio" name="symbol" value='X'> X
+          <input type="radio" name="symbol" value='O'> O
+        </form>
+
+        <select name="level" id="level">
+            <option value="easy">easy</option>
+            <option value="medium">medium</option>
+            <option value="hard">hard</option>
+        </select>
+        <button onclick="gameStart()">Start</button>
       </div>
     </div>
 

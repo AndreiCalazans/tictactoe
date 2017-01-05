@@ -8,6 +8,16 @@
 // dont let it re click on the same square and still be able to select .
 //if all squares are filled and no winner then declare the loser
 
+
+    //
+      // to-dos
+        // make msg for whose turn is it 
+        // make option for two players
+        // create levels medium and hard(minimax)
+        // make a more atractive UI
+
+
+
 // the variables
 var xChosenBox = [] ;
 var oChosenBox = [] ;
@@ -19,15 +29,37 @@ var sign ;
 var user = 1;
 var computer = -1;
 var game = true;
+var aiLevel ;
+// types of levels are -dumb -easy - medium -hard
 
 
 
 // functions
-function gameStart(symbol){
-  sign = symbol;
+function gameStart(){
+  intro(); // hides intro
+  signInput = Array.prototype.slice.call(document.getElementsByTagName('input')) ; //gets an aray of the input x and o
+  var checked = true;
+  for(var x = 0 ; x < signInput.length ; x++){
+    if(signInput[x].checked != true){
+      checked = false;
+    }else {
+      checked = true;
+      sign = signInput[x].value;
+      break;
+    }
+  }
+  if(!checked){
+    intro();
+    alert("please choose X or O");
+  }
+
+  levelOption = document.getElementById('level');
+  aiLevel = levelOption.value;
+
   signComputer = sign == "X" ? "O" : "X";
   reset();
   game= true;
+
 }
 
 function claim(click){
@@ -37,7 +69,7 @@ function claim(click){
   for(var x = 0 ; x <= 8 ; x++){
     if(box[x] === click && boardState[x] == 0){
       set(x,user);
-      callAI();
+      callAI(aiLevel);
     }
   }
 }
@@ -47,12 +79,12 @@ function set(index, player){
   var symbol= player == user ? sign : signComputer;
   box[index].innerHTML = symbol;
   boardState[index] = player;
+  checkWin(player);
+  boardFull();
 }
 
 
-function callAI(){
-   aiTurn();
-}
+
 
 function checkWin(player){
   for(var x = 0 ; x < 8 ; x++){
@@ -66,11 +98,45 @@ function checkWin(player){
     }
     if(win){
       game = false;
+      console.log('you win')
+      continuing("win", player);
       return true;
     }
   }
   return false;
 }
+
+function boardFull(){
+  if(game){
+      var isBoardFull = true;
+      for(var x = 0 ; x < boardState.length ; x++){
+        if(boardState[x] == 0){
+          isBoardFull = false;
+          break;
+        }
+      }
+      if(isBoardFull){
+        console.log("Tie");
+        game= false;
+        continuing('tie');
+      }
+  }
+}
+
+function callAI(aiLevel){
+  if(!game){
+    return;
+  }
+  if(aiLevel == "easy"){
+    var aiIndex = Math.floor(Math.random() * 9);
+      if(boardState[aiIndex] == 0){
+        set(aiIndex ,computer);
+      }else{
+      callAI(aiLevel);
+      }
+  }
+}
+
 
 function reset(){
   for(var x = 0 ; x <= 8 ; x++){
@@ -79,14 +145,43 @@ function reset(){
   }
 }
 
-
-function aiTurn(level){
-  //easy
-  // medium
-  // hard (minimax)
-
-
+//UI functions above
+function intro(){
+  document.querySelector(".gameOptions").classList.toggle("display");
 }
+function continuing(situation, player){
+  var opositeSign = sign == "X" ? "O" : "X";
+  player  = player == 1 ? sign : opositeSign;
+var msg;
+  if(situation == "win"){
+    msg = `${player} Wins!!!`
+  }else {
+    msg = `It's a Tie`
+  }
+
+    document.querySelector(".gameOptions").classList.toggle("display");
+    document.getElementById('display').innerHTML = `<div id = "newWindow">
+        <p>${msg}</p>
+      <div>
+        <form action="">
+          <input type="radio" name="symbol" value='X'> X
+          <input type="radio" name="symbol" value='O'> O
+        </form>
+
+        <select name="level" id="level">
+            <option value="easy">easy</option>
+            <option value="medium">medium</option>
+            <option value="hard">hard</option>
+        </select>
+        <button onclick="gameStart()">Start</button>
+      </div>
+    </div>`
+}
+
+
+
+
+
 // the commands
 
 
