@@ -11,7 +11,7 @@
 
     //
       // to-dos
-        // make msg for whose turn is it 
+    
         // make option for two players
         // create levels medium and hard(minimax)
         // make a more atractive UI
@@ -30,11 +30,24 @@ var user = 1;
 var computer = -1;
 var game = true;
 var aiLevel ;
+var gameTurn = 0;
 // types of levels are -dumb -easy - medium -hard
 
 
 
 // functions
+
+function whoseTurn(first){
+  var x = first == "X" ? "X" : "O";
+  var turnTable = document.getElementById('turnTable');
+  if(first ==  "X"){
+
+  }else {
+    turnTable.innerHTML = `It is O's turn`;
+  }
+}
+
+
 function gameStart(){
   intro(); // hides intro
   signInput = Array.prototype.slice.call(document.getElementsByTagName('input')) ; //gets an aray of the input x and o
@@ -52,14 +65,16 @@ function gameStart(){
     intro();
     alert("please choose X or O");
   }
-
   levelOption = document.getElementById('level');
   aiLevel = levelOption.value;
 
   signComputer = sign == "X" ? "O" : "X";
   reset();
   game= true;
-
+  // if ai x it goes first
+  if(signComputer =="X"){
+    callAI(aiLevel);
+  }
 }
 
 function claim(click){
@@ -70,12 +85,14 @@ function claim(click){
     if(box[x] === click && boardState[x] == 0){
       set(x,user);
       callAI(aiLevel);
+
+
     }
   }
 }
 
-
 function set(index, player){
+  gameTurn += 0.5
   var symbol= player == user ? sign : signComputer;
   box[index].innerHTML = symbol;
   boardState[index] = player;
@@ -122,8 +139,8 @@ function boardFull(){
       }
   }
 }
-
 function callAI(aiLevel){
+
   if(!game){
     return;
   }
@@ -149,6 +166,7 @@ function reset(){
 function intro(){
   document.querySelector(".gameOptions").classList.toggle("display");
 }
+
 function continuing(situation, player){
   var opositeSign = sign == "X" ? "O" : "X";
   player  = player == 1 ? sign : opositeSign;
