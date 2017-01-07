@@ -11,9 +11,8 @@
 
     //
       // to-dos
-    
-        // make option for two players
-        // create levels medium and hard(minimax)
+
+        // create level hard(minimax)
         // make a more atractive UI
 
 
@@ -31,7 +30,7 @@ var computer = -1;
 var game = true;
 var aiLevel ;
 var gameTurn = 0;
-// types of levels are -dumb -easy - medium -hard
+// types of levels are -easy - medium -hard
 
 
 
@@ -47,7 +46,7 @@ function whoseTurn(first){
   }
 }
 
-
+/////////////////////////////////////////////////////////
 function gameStart(){
   intro(); // hides intro
   signInput = Array.prototype.slice.call(document.getElementsByTagName('input')) ; //gets an aray of the input x and o
@@ -76,7 +75,7 @@ function gameStart(){
     callAI(aiLevel);
   }
 }
-
+//////////////////////////////////////////////
 function claim(click){
   if(!game){
     return;
@@ -90,19 +89,22 @@ function claim(click){
     }
   }
 }
-
+////////////////////////////////////////
 function set(index, player){
-  gameTurn += 0.5
+  if(player == computer){
+
+  }
+
   var symbol= player == user ? sign : signComputer;
   box[index].innerHTML = symbol;
   boardState[index] = player;
-  checkWin(player);
+  checkWin(player, boardState);
   boardFull();
 }
 
 
 
-
+//////////////////////////////////////////////////////
 function checkWin(player){
   for(var x = 0 ; x < 8 ; x++){
     var win = true;
@@ -115,6 +117,7 @@ function checkWin(player){
     }
     if(win){
       game = false;
+      gameTurn = 0;
       console.log('you win')
       continuing("win", player);
       return true;
@@ -122,7 +125,7 @@ function checkWin(player){
   }
   return false;
 }
-
+////////////////////////////////////////////////////////////
 function boardFull(){
   if(game){
       var isBoardFull = true;
@@ -135,22 +138,136 @@ function boardFull(){
       if(isBoardFull){
         console.log("Tie");
         game= false;
+        gameTurn = 0;
         continuing('tie');
       }
   }
 }
-function callAI(aiLevel){
+//////////////
+function isBoardEmpty(){
+var condition = true;
+  boardState.forEach((e) => {
+    if(e != 0 ){
+      condition = false;
+      return ;
+    }
+  })
+  return condition;
+}
+
+////////////////////
+function aiWin(player, board){
+  for(var x = 0 ; x < 8 ; x++){
+    var win = true;
+
+    for(var y = 0 ; y < 3 ; y++ ){
+      if(board[winningHands[x][y]] != player){
+        win = false;
+        break;
+      }
+    }
+    if(win){
+      return true;
+    }
+  }
+  return false;
+}
+/////////////////////////////////////
+
+function canNextWin(player){
+  if(!game){
+    return;
+  }
+  for(var i = 0 ; i < boardState.length ; i++){
+    var newBoard = boardState.slice();
+    newBoard[i] = player;
+    var isWin = aiWin(player , newBoard);
+     if(isWin && boardState[i] == 0){
+       set( i , computer);
+       return true;
+       break;
+     }
+  }
+}
+//////////////////////////////////////////////////////
+function canUserWin(player){
+  if(!game){
+    return;
+  }
+  for(var i = 0 ; i < boardState.length ; i++){
+    var newBoard = boardState.slice();
+    newBoard[i] = player;
+    var isWin = aiWin(player , newBoard);
+     if(isWin && boardState[i] == 0){
+       return true;
+       break;
+     }
+  }
+  return false;
+}
+//////////////////////////////////////////////////////////
+function pickRandom(){
 
   if(!game){
     return;
   }
+  var aiIndex = Math.floor(Math.random() * 9);
+    if(boardState[aiIndex] == 0){
+      set(aiIndex ,computer);
+    }else{
+      pickRandom();
+    }
+}
+////////////////////////////////////////////////////////////////
+function mediumAI(){
+var corners = [0,2,6,8];
+var cornerFailed = false;
+canNextWin(computer);
+var isItTrue = canUserWin(user);
+if(isItTrue){
+  cornerFailed = true;
+  canNextWin(user);
+}else if(boardState[4] == user){
+  //function to block
+
+  if(isItTrue){
+    cornerFailed = true;
+    canNextWin(user);
+  }
+}
+// picks the corners otherwise gets random.
+function pickCorners(){
+ if(cornerFailed){
+   return;
+ }else{
+   for(var i = 0 ; i < corners.length ; i++){
+     if(boardState[corners[i]] == 0){
+       set(corners[i], computer);
+       return ;
+     }
+   }
+   cornerFailed = true;
+   if(cornerFailed){
+     pickRandom();
+   }
+ }
+};
+pickCorners();
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+function callAI(aiLevel){
+  if(!game){
+    return;
+  }
   if(aiLevel == "easy"){
-    var aiIndex = Math.floor(Math.random() * 9);
-      if(boardState[aiIndex] == 0){
-        set(aiIndex ,computer);
-      }else{
-      callAI(aiLevel);
-      }
+
+    canNextWin();
+    pickRandom();
+
+  }else if(aiLevel == "medium"){
+      mediumAI();
   }
 }
 
