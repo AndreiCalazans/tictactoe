@@ -12,8 +12,13 @@
     //
       // to-dos
 
-      
-$(".gameOptions").hide();
+/// bugs
+
+// var startBtn = document.getElementById("start");
+// startBtn.addEventListener("click", gameStart);
+//
+// $("#start").on("touchend", function () { gameStart(); });
+
 // the variables
 var winningHands = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 var boardState = [0,0,0,0,0,0,0,0,0];
@@ -298,7 +303,7 @@ function continuing(situation, player){
   player  = player == 1 ? "You" : "Computer";
 var msg;
   if(situation == "win"){
-    msg = `${player} Wins!!!`
+    msg = `${player} Win!!!`
     tada.currentTime = 0;
     tada.play();
   }else {
