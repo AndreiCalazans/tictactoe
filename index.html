@@ -2,6 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="Description" content="tic tic toe game by andrei calazans">
+    <meta name="keywords" content="tic tac toe game, tictactoe, andrei calazans">
+    <meta name="author" content="andrei calazans">
+    <meta name='viewport' content="width= device-width , initial-scale = 1.0">
     <title>TicTacToe Game</title>
     <link rel="stylesheet" href="css.css">
   </head>
@@ -16,14 +20,14 @@
         <p>Are you X or O?</p>
       <div>
         <form action="">
-          <input type="radio" name="symbol" value='X'> X
-          <input type="radio" name="symbol" value='O'> O
+          <input type="radio" name="symbol" value='X'> X <span>X goes first</span>
+          <input type="radio" name="symbol" value='O'> O <span>O goes second</span>
         </form>
 
         <select name="level" id="level">
             <option value="easy">easy</option>
             <option value="medium">medium</option>
-            <option value="hard">hard</option>
+            <option value="hard" disabled>hard</option>
         </select>
         <button onclick="gameStart()">Start</button>
       </div>
@@ -48,4 +52,5 @@
 
   </body>
 </html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
 <script src="js.js"></script>
