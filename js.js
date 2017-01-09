@@ -13,11 +13,10 @@
       // to-dos
 
 /// bugs
-
-// var startBtn = document.getElementById("start");
-// startBtn.addEventListener("click", gameStart);
 //
-// $("#start").on("touchend", function () { gameStart(); });
+// var startBtn = document.getElementById("start");
+// startBtn.addEventListener("mouseup", gameStart , false);
+// startBtn.addEventListener("touchend", gameStart , false);
 
 // the variables
 var winningHands = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
@@ -41,18 +40,9 @@ pling.src = 'pling.mp3';
 
 // functions ////////////////////////////////////////////////////////////////////
 
-function whoseTurn(first){
-  var x = first == "X" ? "X" : "O";
-  var turnTable = document.getElementById('turnTable');
-  if(first ==  "X"){
 
-  }else {
-    turnTable.innerHTML = `It is O's turn`;
-  }
-}
-
-/////////////////////////////////////////////////////////
 function gameStart(){
+
   intro(); // hides intro
   signInput = Array.prototype.slice.call(document.getElementsByTagName('input')) ; //gets an aray of the input x and o
   var checked = true;
@@ -79,6 +69,7 @@ function gameStart(){
   if(signComputer =="X"){
     callAI(aiLevel);
   }
+
 }
 //////////////////////////////////////////////
 function claim(click){
@@ -98,8 +89,8 @@ function claim(click){
 ////////////////////////////////////////
 function set(index, player){
 
-  var symbol= player == user ? sign : signComputer;
-  box[index].innerHTML = symbol;
+  var symbol = player === user ? sign : signComputer;
+  box[index].innerHTML =  symbol ;
   box[index].style.fontSize = "8vw"
   boardState[index] = player;
   click.currentTime = 0;
@@ -124,7 +115,6 @@ function checkWin(player){
     if(win){
       game = false;
       gameTurn = 0;
-      console.log('you win')
       continuing("win", player);
       return true;
     }
@@ -142,7 +132,6 @@ function boardFull(){
         }
       }
       if(isBoardFull){
-        console.log("Tie");
         game= false;
         gameTurn = 0;
         continuing('tie');
@@ -228,7 +217,9 @@ function pickRandom(){
 function mediumAI(){
 var corners = [0,2,6,8];
 var cornerFailed = false;
-canNextWin(computer);
+if(canNextWin(computer)){
+  return;
+}else {
 var isItTrue = canUserWin(user);
 if(isItTrue){
   cornerFailed = true;
@@ -239,6 +230,8 @@ if(isItTrue){
   if(isItTrue){
     cornerFailed = true;
     canNextWin(user);
+  }else {
+
   }
 }
 // picks the corners otherwise gets random.
@@ -259,6 +252,7 @@ function pickCorners(){
  }
 };
 pickCorners();
+ }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -314,4 +308,4 @@ var msg;
 
   intro(msg);
 
-}
+};

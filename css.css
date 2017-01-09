@@ -53,7 +53,9 @@ header {
 
 }
 
-
+footer{
+  text-align: center;
+}
 .gameOptions #newWindow {
   display: flex;
   justify-content: center;
@@ -75,7 +77,7 @@ header {
   margin: 5px;
 }
 .display {
-
+ display:none;
 }
 /*////////////////*tool tip*/
 
