@@ -297,13 +297,13 @@ function continuing(situation, player){
   player  = player == 1 ? "You" : "Computer";
 var msg;
   if(situation == "win"){
-    msg = `${player} Win!!!`
+    msg = player +'Win!!!'
     tada.currentTime = 0;
     tada.play();
   }else {
     pling.currentTime = 0;
     pling.play();
-    msg = `It's a Tie`
+    msg = "It's a Tie"
   }
 
   intro(msg);
