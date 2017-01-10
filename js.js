@@ -17,7 +17,7 @@
 // var startBtn = document.getElementById("start");
 // startBtn.addEventListener("mouseup", gameStart , false);
 // startBtn.addEventListener("touchend", gameStart , false);
-
+"use strict";
 // the variables
 var winningHands = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 var boardState = [0,0,0,0,0,0,0,0,0];
@@ -29,22 +29,22 @@ var game = true;
 var aiLevel ;
 var gameTurn = 0;
 var click =  new Audio;
-click.src = 'click.mp3';
+click.src = "click.mp3";
 var tada = new Audio;
-tada.src = 'tada.mp3';
+tada.src = "tada.mp3";
 var pling = new Audio;
-pling.src = 'pling.mp3';
+pling.src = "pling.mp3";
 // types of levels are -easy - medium -hard
 
-
-
+var levelOption;
+var signComputer;
 // functions ////////////////////////////////////////////////////////////////////
 
 
 function gameStart(){
 
   intro(); // hides intro
-  signInput = Array.prototype.slice.call(document.getElementsByTagName('input')) ; //gets an aray of the input x and o
+  var signInput = Array.prototype.slice.call(document.getElementsByTagName('input')) ; //gets an aray of the input x and o
   var checked = true;
   for(var x = 0 ; x < signInput.length ; x++){
     if(signInput[x].checked != true){
@@ -297,7 +297,7 @@ function continuing(situation, player){
   player  = player == 1 ? "You" : "Computer";
 var msg;
   if(situation == "win"){
-    msg = player +'Win!!!'
+    msg = player +"Win!!!"
     tada.currentTime = 0;
     tada.play();
   }else {
